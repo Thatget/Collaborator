@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="MW_CB::mwcb" title="MW CB" module="MW_CB" sortOrder="11" resource="Command_Log::check"/>
+        <add id="MW_CB::check" title="Create a part of invoice" module="MW_CB" sortOrder="10" action="mwcb/invoice/index" resource="Command_Log::check" parent="MW_CB::mwcb"/>
+    </menu>
+</config>

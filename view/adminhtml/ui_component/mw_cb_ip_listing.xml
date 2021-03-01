@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">mw_cb_ip_listing.mw_cb_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="reload">
+                <url path="*/*/*"/>
+                <class>separator-top</class>
+                <label translate="true"> Reload !</label>
+            </button>
+            <button name="add">
+                <url path="*/*/new"/>
+                <class>primary</class>
+                <label translate="true">Add New</label>
+            </button>
+        </buttons>
+        <spinner>mw_cb_columns</spinner>
+        <deps>
+            <dep>mw_cb_ip_listing.mw_cb_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="mw_cb_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">ip_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Magento_Sales::sales_invoice</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="mw_cb_listing_data_source">
+            <settings>
+                <requestFieldName>ip_id</requestFieldName>
+                <primaryFieldName>ip_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="fulltext"/>
+        <filters name="listing_filters"/>
+        <massaction name="listing_massaction">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to delete selected items?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="*/*/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+            <action name="edit">
+                <settings>
+                    <callback>
+                        <target>editSelected</target>
+                        <provider>mw_cb_ip_listing.mw_cb_ip_listing.mw_cb_listing_data_source</provider>
+                    </callback>
+                    <type>edit</type>
+                    <label translate="true">Edit</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="mw_cb_columns">
+        <settings>
+            <editorConfig>
+                <param name="indexField" xsi:type="string">ip_id</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="selectProvider" xsi:type="string">command_log_listing.command_log_listing.mw_cb_listing_data_source.ids</param>
+            </editorConfig>
+        </settings>
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>id</indexField>
+                </settings>
+        </selectionsColumn>
+        <column name="ip_id" sortOrder="11">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="ip_order_id" sortOrder="21">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Order ID</label>
+            </settings>
+        </column>
+        <column name="amount" sortOrder="14">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Amount</label>
+            </settings>
+        </column>
+        <column name="subtotal" class="MW\CB\Ui\Component\Listing\Column\Amount" sortOrder="16">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="label" xsi:type="string" translate="true">Subtatol</item>
+                </item>
+            </argument>
+        </column>
+        <column name="create_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date" sortOrder="17">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <dateFormat>yyyy-MM-dd hh:mm:ss</dateFormat>
+                <label translate="true">Create at</label>
+            </settings>
+        </column>
+        <column name="comment" sortOrder="31">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Comment</item>
+                </item>
+            </argument>
+        </column>
+<!--        <actionsColumn name="actions" class="MW\CB\Ui\Component\Listing\Column\Actions">-->
+<!--            <settings>-->
+<!--                <indexField>entity_id</indexField>-->
+<!--            </settings>-->
+<!--        </actionsColumn>-->
+    </columns>
+</listing>

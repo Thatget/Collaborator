@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mw_cb_listing_data_source" xsi:type="string">MW\CB\Model\ResourceModel\Mwip\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="MW\CB\Model\ResourceModel\Mwip\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">mw_invoice_payment</argument>
+            <argument name="resourceModel" xsi:type="string">MW\CB\Model\ResourceModel\Mwip</argument>
+        </arguments>
+    </virtualType>
+</config>
